@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: alberta_plants_db
+    environment:
+      POSTGRES_DB: PlantCareDb
+      POSTGRES_USER: plant_user
+      POSTGRES_PASSWORD: WinterPlantPassword123!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alberta_plants_api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres_data:
