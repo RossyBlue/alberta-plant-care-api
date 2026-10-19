@@ -36,13 +36,22 @@ Indoor humidity in Alberta homes can drop below 20% in winter, and many housepla
 
 ```bash
 git clone https://github.com/RossyBlue/alberta-plant-care-api.git
-cd alberta-plant-care-api
+cd alberta-plant-care-api 
 docker compose up --build
 ```
+cd PlantInventoryApi
 
 Then open **http://localhost:8080** to see the Swagger UI.
 
 On first run the app applies the database migrations and seeds two sample plants (Pothos and Calathea). Data is stored in a Docker volume, so it survives `docker compose down`. Use `docker compose down -v` to wipe it and start fresh.
+
+## Running Tests
+
+```bash
+dotnet test PlantInventoryApi.Tests
+```
+
+Tests cover the domain logic, DTO validation, the repository (EF Core InMemory) and the controller (Moq).
 
 ### Running without Docker for the API
 
@@ -140,7 +149,7 @@ curl -X POST http://localhost:8080/api/Plants \
 - [x] Full CRUD (`PUT` and `DELETE`)
 - [x] Input validation and standard error responses
 - [x] PostgreSQL persistence with EF Core and migrations
-- [ ] Unit and integration tests (xUnit)
+- [x] Unit and integration tests (xUnit)
 - [ ] GitHub Actions CI
 - [ ] Document response codes with `[ProducesResponseType]`
 - [ ] Simple web UI
