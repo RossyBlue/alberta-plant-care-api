@@ -1,43 +1,104 @@
 # 🪴 Alberta Winter Plant Care API
 
-A lightweight RESTful Web API built with **.NET 8**, **C#**, and **Docker** designed to track indoor houseplants and manage special care alerts during Alberta's harsh winter conditions (extreme dry air, reduced daylight, and furnace hazards).
+A RESTful Web API for tracking indoor houseplants and generating care alerts for Alberta's harsh winters: extremely dry air, short daylight hours, and cold drafts near windows.
 
-🚀 Tech Stack
-Framework: .NET 8 Web API (C#)
+Built with **.NET 8**, **PostgreSQL**, and **Docker**.
 
-Containerization: Docker & Docker Compose
+![Swagger UI](docs/swagger.png)
 
-Database: PostgreSQL 16
+## Why this project?
 
-Documentation: OpenAPI / Swagger UI
+Indoor humidity in Alberta homes can drop below 20% in winter, and many houseplants struggle with it. This API helps answer: *which of my plants need a humidifier, a grow light, or to be moved away from a cold window?*
 
-Architecture: Controller-Repository Pattern
+## Features
 
-⚡ Features
-Plant Inventory Management: CRUD operations to track indoor plants and their location.
+- **Plant inventory**: track plants, their location, and their care needs.
+- **Winter care alerts**: `GET /api/plants/alberta-winter-care` returns plants that need extra humidity (<20% indoor humidity) or artificial grow lights.
+- **Cold draft detection**: a computed property flags plants located near cold windows or draft zones.
+- **Interactive docs**: Swagger UI included.
 
-Alberta Winter Care Alerts (/api/plants/alberta-winter-care): Filters plants requiring extra care, such as high-humidity needs (<20% humidity indoors) or artificial grow lights during winter months.
+## Tech Stack
 
-Cold Draft Risk Detection: Automatic property calculation checking if a plant is located near cold windows or draft zones.
+| Area | Technology |
+|------|------------|
+| Framework | .NET 8 Web API (C#) |
+| Database | PostgreSQL 16 |
+| Containers | Docker & Docker Compose |
+| Docs | OpenAPI / Swagger |
+| Architecture | Controller-Repository pattern |
 
-🛠️ How to Run with Docker
-Make sure you have Docker Desktop installed and running.
+## Getting Started
 
-1. Clone the repository:
-git clone [https://github.com/rossyblue/alberta-plant-care-api.git]
+**Requirements:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+```bash
+git clone https://github.com/rossyblue/alberta-plant-care-api.git
 cd alberta-plant-care-api
-
-2. Spin up the environment:
 docker compose up --build
+```
 
-3. Access the API Documentation:
-Open your browser and navigate to:
-👉 http://localhost:8080/swagger
+Then open **http://localhost:8080/swagger**.
 
-🔌 API Endpoints
-Method,Endpoint,Description
-GET,/api/plants,Retrieve all indoor plants in the inventory
-GET,/api/plants/{id},Get specific plant details by ID
-GET,/api/plants/alberta-winter-care,List plants needing humidifiers or grow lights
-POST,/api/plants,Add a new plant to the inventory
+## API Endpoints
 
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/plants` | List all plants |
+| GET | `/api/plants/{id}` | Get a plant by ID |
+| GET | `/api/plants/alberta-winter-care` | Plants needing humidifiers or grow lights |
+| POST | `/api/plants` | Add a new plant |
+
+### Example request
+
+```bash
+curl -X POST http://localhost:8080/api/plants \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Monstera",
+    "location": "Living room, next to window",
+    "needsHumidity": true,
+    "needsGrowLight": false
+  }'
+```
+
+### Example response
+
+```json
+{
+  "id": 1,
+  "name": "Monstera",
+  "location": "Living room, next to window",
+  "needsHumidity": true,
+  "needsGrowLight": false,
+  "coldDraftRisk": true
+}
+```
+
+## Project Structure
+
+```
+├── Controllers/     # HTTP endpoints
+├── Repositories/    # Data access layer
+├── Models/          # Entities and DTOs
+├── docker-compose.yml
+└── Dockerfile
+```
+
+## Design Decisions
+
+- **Controller-Repository pattern** keeps HTTP logic separate from data access, which makes the code easier to test and maintain.
+- **Docker Compose** runs the API and database together, so it works with a single command.
+
+## Roadmap
+
+- [ ] `PUT` and `DELETE` endpoints
+- [ ] Input validation and consistent error responses
+- [ ] Unit and integration tests (xUnit)
+- [ ] GitHub Actions CI
+- [ ] Real outdoor temperature alerts via Environment Canada
+- [ ] Simple web UI
+- [ ] Public deployment
+
+## Author
+
+**Rossy**: [GitHub](https://github.com/rossyblue)
