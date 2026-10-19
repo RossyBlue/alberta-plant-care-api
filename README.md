@@ -1,5 +1,7 @@
 # 🪴 Alberta Winter Plant Care API
 
+![CI](https://github.com/RossyBlue/alberta-plant-care-api/actions/workflows/ci.yml/badge.svg)
+
 A RESTful Web API for tracking indoor houseplants and generating care alerts for Alberta's harsh winters: extremely dry air, short daylight hours, and cold drafts near windows.
 
 Built with **.NET 8**, **Entity Framework Core**, **PostgreSQL**, and **Docker**.
