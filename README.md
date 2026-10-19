@@ -21,6 +21,7 @@ Indoor humidity in Alberta homes can drop below 20% in winter, and many housepla
 - **Input validation**: requests are validated with DTOs and return standard `ProblemDetails` (RFC 9110) errors.
 - **Persistent storage** in PostgreSQL using EF Core migrations, with seed data on first run.
 - **Interactive docs** with Swagger UI.
+- **Simple web UI** to view, add and delete plants, and filter winter care alerts.
 
 ## Tech Stack
 
@@ -140,6 +141,7 @@ curl -X POST http://localhost:8080/api/Plants \
 ├── Services/        # Repository interface and implementation
 ├── Dockerfile
 └── docker-compose.yml
+wwwroot/ # Static web UI.
 ```
 
 ## Design Decisions
@@ -156,9 +158,9 @@ curl -X POST http://localhost:8080/api/Plants \
 - [x] Input validation and standard error responses
 - [x] PostgreSQL persistence with EF Core and migrations
 - [x] Unit and integration tests (xUnit)
-- [ ] GitHub Actions CI
+- [x] GitHub Actions CI
 - [ ] Document response codes with `[ProducesResponseType]`
-- [ ] Simple web UI
+- [x] Simple web UI
 - [ ] Real outdoor temperature alerts via Environment Canada
 - [ ] Public deployment
 
