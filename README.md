@@ -1,6 +1,7 @@
 # 🪴 Alberta Winter Plant Care API
 
 ![CI](https://github.com/RossyBlue/alberta-plant-care-api/actions/workflows/ci.yml/badge.svg)
+![Web UI](docs/ui.png)
 
 A RESTful Web API for tracking indoor houseplants and generating care alerts for Alberta's harsh winters: extremely dry air, short daylight hours, and cold drafts near windows.
 
@@ -43,7 +44,10 @@ docker compose up --build
 ```
 cd PlantInventoryApi
 
-Then open **http://localhost:8080** to see the Swagger UI.
+Then open:
+
+- **http://localhost:8080** for the web UI
+- **http://localhost:8080/swagger** for the Swagger API docs
 
 On first run the app applies the database migrations and seeds two sample plants (Pothos and Calathea). Data is stored in a Docker volume, so it survives `docker compose down`. Use `docker compose down -v` to wipe it and start fresh.
 
