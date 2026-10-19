@@ -27,13 +27,15 @@ using (var scope = app.Services.CreateScope())
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
-// Swagger tanto en desarrollo como en contenedor
+// Swagger tanto en desarrollo como en contenedor (queda en /swagger)
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Alberta Plants API v1");
-    c.RoutePrefix = string.Empty; // Swagger abre directo en la raíz
 });
+
+app.UseDefaultFiles();   // sirve index.html en la raíz
+app.UseStaticFiles();    // sirve lo que esté en wwwroot
 
 app.UseAuthorization();
 app.MapControllers();

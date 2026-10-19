@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alberta Winter Plant Care</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪴</text></svg>">
+<style>
+  :root {
+    --bg: #eef3f5; --surface: #ffffff; --ink: #1b2a2f; --muted: #5c7078;
+    --line: #d3dee2; --spruce: #1f4a3d; --spruce-ink: #ffffff;
+    --humid: #1d6a96; --humid-bg: #dcedf6;
+    --light: #8a5a00; --light-bg: #fbeccb;
+    --draft: #9c3a2e; --draft-bg: #f6dcd7;
+    --ok: #1f4a3d; --ok-bg: #dcece5;
+    --danger: #9c3a2e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11191c; --surface: #1a2529; --ink: #e6eef0; --muted: #94a8af;
+      --line: #2b3a40; --spruce: #7cc4a8; --spruce-ink: #0f1e19;
+      --humid: #8ccbee; --humid-bg: #17384a;
+      --light: #f0c46a; --light-bg: #43330f;
+      --draft: #f0a094; --draft-bg: #4a211b;
+      --ok: #8fd1b6; --ok-bg: #183a2e;
+      --danger: #f0a094;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font: 700 2.2rem/1.15 Georgia, "Times New Roman", serif; margin: 0 0 6px; color: var(--spruce); }
+  h2 { font: 700 1.3rem/1.2 Georgia, "Times New Roman", serif; margin: 0 0 14px; }
+  .lead { color: var(--muted); margin: 0 0 28px; max-width: 60ch; }
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: start; }
+  @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .bar h2 { margin: 0; }
+  .plants { display: grid; gap: 12px; }
+  .plant { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .plant-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .plant h3 { margin: 0; font-size: 1.05rem; }
+  .where { color: var(--muted); font-size: .9rem; margin: 2px 0 10px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .tag { font-size: .8rem; padding: 2px 9px; border-radius: 99px; font-weight: 600; }
+  .t-humid { background: var(--humid-bg); color: var(--humid); }
+  .t-light { background: var(--light-bg); color: var(--light); }
+  .t-draft { background: var(--draft-bg); color: var(--draft); }
+  .t-ok { background: var(--ok-bg); color: var(--ok); }
+  .t-late { background: var(--draft-bg); color: var(--draft); }
+  .foot { display: flex; justify-content: space-between; align-items: center; font-size: .9rem; color: var(--muted); }
+  button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; }
+  button:hover { border-color: var(--spruce); }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--humid); outline-offset: 2px; }
+  button.primary { background: var(--spruce); color: var(--spruce-ink); border-color: var(--spruce); font-weight: 600; width: 100%; padding: 10px; }
+  button.link { border: 0; background: none; color: var(--danger); padding: 2px 4px; font-size: .9rem; }
+  button[aria-pressed="true"] { background: var(--spruce); color: var(--spruce-ink); border-color: var(--spruce); }
+  form { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 12px; position: sticky; top: 16px; }
+  label { display: grid; gap: 4px; font-size: .9rem; font-weight: 600; }
+  input[type=text], input[type=number], input[type=date] {
+    font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); width: 100%;
+  }
+  .check { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+  .msg { font-size: .9rem; min-height: 1.3em; margin: 0; }
+  .msg.error { color: var(--danger); }
+  .msg.ok { color: var(--ok); }
+  .note { background: var(--humid-bg); color: var(--humid); border-radius: 8px; padding: 10px 14px; font-size: .9rem; margin-bottom: 14px; }
+  .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 10px; }
+  footer { margin-top: 36px; color: var(--muted); font-size: .85rem; }
+  footer a { color: var(--spruce); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Alberta Winter Plant Care</h1>
+  <p class="lead">Track your houseplants and see which ones need a humidifier, a grow light, or a spot away from the cold window.</p>
+
+  <div class="layout">
+    <section aria-labelledby="list-title">
+      <div class="bar">
+        <h2 id="list-title">Your plants</h2>
+        <button id="filter" type="button" aria-pressed="false">Show winter care only</button>
+      </div>
+      <div id="note" class="note" hidden></div>
+      <div id="plants" class="plants" aria-live="polite"></div>
+    </section>
+
+    <form id="form" novalidate>
+      <h2>Add a plant</h2>
+      <label>Name
+        <input type="text" name="name" required minlength="2" maxlength="100" placeholder="Monstera">
+      </label>
+      <label>Location
+        <input type="text" name="locationInHouse" required minlength="2" maxlength="200" placeholder="Living room window">
+      </label>
+      <label>Days between waterings (1 to 60)
+        <input type="number" name="winterWateringDaysInterval" min="1" max="60" value="10" required>
+      </label>
+      <label>Last watered
+        <input type="date" name="lastWatered" required>
+      </label>
+      <label class="check"><input type="checkbox" name="requiresHumidifier"> Needs a humidifier</label>
+      <label class="check"><input type="checkbox" name="needsGrowLight"> Needs a grow light</label>
+      <button class="primary" type="submit">Add plant</button>
+      <p id="msg" class="msg" role="status"></p>
+    </form>
+  </div>
+
+  <footer>Built with .NET 8, PostgreSQL and Docker. <a href="/swagger">API docs</a></footer>
+</main>
+
+<script>
+  const API = '/api/Plants';
+  const listEl = document.getElementById('plants');
+  const noteEl = document.getElementById('note');
+  const filterBtn = document.getElementById('filter');
+  const form = document.getElementById('form');
+  const msg = document.getElementById('msg');
+  let winterOnly = false;
+
+  form.lastWatered.value = new Date().toISOString().slice(0, 10);
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  function wateringStatus(p) {
+    const due = new Date(p.lastWatered).getTime() + p.winterWateringDaysInterval * 86400000;
+    const days = Math.ceil((due - Date.now()) / 86400000);
+    if (days < 0) return { text: 'Overdue by ' + Math.abs(days) + (days === -1 ? ' day' : ' days'), late: true };
+    if (days === 0) return { text: 'Water today', late: true };
+    return { text: 'Water in ' + days + (days === 1 ? ' day' : ' days'), late: false };
+  }
+
+  function card(p) {
+    const c = el('article', 'plant');
+    const head = el('div', 'plant-head');
+    head.append(el('h3', '', p.name));
+    c.append(head, el('p', 'where', p.locationInHouse));
+
+    const tags = el('div', 'tags');
+    if (p.requiresHumidifier) tags.append(el('span', 'tag t-humid', 'Humidifier'));
+    if (p.needsGrowLight) tags.append(el('span', 'tag t-light', 'Grow light'));
+    if (p.isDraftRisk) tags.append(el('span', 'tag t-draft', 'Cold draft risk'));
+    if (!tags.children.length) tags.append(el('span', 'tag t-ok', 'Easy winter'));
+    c.append(tags);
+
+    const s = wateringStatus(p);
+    const foot = el('div', 'foot');
+    foot.append(el('span', '', s.text + ' · every ' + p.winterWateringDaysInterval + ' days'));
+    const del = el('button', 'link', 'Delete');
+    del.type = 'button';
+    del.setAttribute('aria-label', 'Delete ' + p.name);
+    del.addEventListener('click', () => removePlant(p));
+    foot.append(del);
+    c.append(foot);
+    return c;
+  }
+
+  async function load() {
+    listEl.replaceChildren(el('p', 'empty', 'Loading plants...'));
+    try {
+      const res = await fetch(winterOnly ? API + '/alberta-winter-care' : API);
+      if (!res.ok) throw new Error('Server returned ' + res.status);
+      const data = await res.json();
+      const plants = winterOnly ? data.plants : data;
+      if (winterOnly && data.note) { noteEl.textContent = data.note; noteEl.hidden = false; }
+      else noteEl.hidden = true;
+
+      listEl.replaceChildren();
+      if (!plants.length) {
+        listEl.append(el('p', 'empty', winterOnly
+          ? 'None of your plants need extra winter care.'
+          : 'No plants yet. Add your first one using the form.'));
+        return;
+      }
+      plants.forEach(p => listEl.append(card(p)));
+    } catch (err) {
+      listEl.replaceChildren(el('p', 'empty', 'Could not load plants. Check that the API is running, then reload.'));
+    }
+  }
+
+  async function removePlant(p) {
+    if (!confirm('Delete ' + p.name + '?')) return;
+    const res = await fetch(API + '/' + p.id, { method: 'DELETE' });
+    if (res.ok || res.status === 404) load();
+    else show('Could not delete the plant.', true);
+  }
+
+  function show(text, isError) {
+    msg.textContent = text;
+    msg.className = 'msg ' + (isError ? 'error' : 'ok');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const body = {
+      name: form.name.value.trim(),
+      locationInHouse: form.locationInHouse.value.trim(),
+      requiresHumidifier: form.requiresHumidifier.checked,
+      needsGrowLight: form.needsGrowLight.checked,
+      winterWateringDaysInterval: Number(form.winterWateringDaysInterval.value),
+      lastWatered: form.lastWatered.value + 'T12:00:00Z'
+    };
+    try {
+      const res = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.status === 400) {
+        const problem = await res.json();
+        const all = Object.values(problem.errors || {}).flat();
+        show(all.join(' ') || 'Some fields are not valid.', true);
+        return;
+      }
+      if (!res.ok) throw new Error();
+      show('Added ' + body.name + '.', false);
+      form.reset();
+      form.winterWateringDaysInterval.value = 10;
+      form.lastWatered.value = new Date().toISOString().slice(0, 10);
+      load();
+    } catch {
+      show('Could not save the plant. Try again.', true);
+    }
+  });
+
+  filterBtn.addEventListener('click', () => {
+    winterOnly = !winterOnly;
+    filterBtn.setAttribute('aria-pressed', String(winterOnly));
+    filterBtn.textContent = winterOnly ? 'Show all plants' : 'Show winter care only';
+    load();
+  });
+
+  load();
+</script>
+</body>
+</html>
